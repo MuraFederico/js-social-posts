@@ -58,6 +58,9 @@ const posts = [
 
 const postsContainer = document.querySelector('.posts-list');
 
+const arrPostsLiked = []; // ARRAY DEI LIKES
+
+
 ////// GENERAZIONE DEI POST //////
 for (let i = 0; i < posts.length; i++) {
      
@@ -75,12 +78,12 @@ for (let i = 0; i < posts.length; i++) {
                                     <div class="post-meta__time">${dateFormatting(posts[i].created)}</div>
                                 </div>                    
                             </div>
-                            </div>
-                            <div class="post__text">${posts[i].content}</div>
-                            <div class="post__image">
+                        </div>
+                        <div class="post__text">${posts[i].content}</div>
+                        <div class="post__image">
                             <img src="${posts[i].media}" alt="">
-                            </div>
-                            <div class="post__footer">
+                        </div>
+                        <div class="post__footer">
                             <div class="likes js-likes">
                                 <div class="likes__cta">
                                     <a class="like-button  js-like-button" href="#!" data-postid="${posts[i].id}">
@@ -94,7 +97,19 @@ for (let i = 0; i < posts.length; i++) {
                             </div> 
                         </div>`
 
-    ////// GESTIONE IMMAGINE PROFILO VUOTA //////
+    controlProfilePicture(i);
+    
+}
+
+eventListenerCreation();
+
+
+
+
+//**** DICHIARAZIONE FUNZIONI ****//
+
+////// GESTIONE IMMAGINE PROFILO VUOTA //////
+function controlProfilePicture(i) {
     if (posts[i].author.image == null) {
         const eleProfileImage = document.querySelectorAll('.profile-pic');
         eleProfileImage[i].classList.add('profile-pic-default');
@@ -103,22 +118,21 @@ for (let i = 0; i < posts.length; i++) {
         eleProfileImage[i].attributes.alt.value = initials
         
     }
-    console.log(posts[i].author.image)
 
 }
 
 ////// AGGIUNTA EVENT LISTENER AL BOTTONE LIKE //////
-for (let i = 0; i < posts.length; i++) {
-    const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
-    likeBtn.addEventListener('click', likeFunction);
+function eventListenerCreation() {
+    for (let i = 0; i < posts.length; i++) {
+        const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
+        likeBtn.addEventListener('click', likeFunction);
+    }
 }
-
-const arrPostsLiked = []; // ARRAY DEI LIKES
 
 ////// FUNZIONE PER GESTIONE LIKES //////
 function likeFunction() {
     if (this.classList.contains('like-button--liked')) {
-        
+
         this.classList.remove('like-button--liked'); // DECOLORAZIONE TASTO PREMUTO
         const eleLikesCount = document.querySelectorAll('.js-likes-counter');
         const index = this.attributes['data-postid'].value - 1; // ACQUISIZIONE INDEX DEL POST
@@ -138,9 +152,6 @@ function likeFunction() {
     }
     console.log(arrPostsLiked)
 }
-
-
-
 
 ////// FORMATTAZIONE DATE IN FORMATO ITALIANO //////
 function dateFormatting (toFormat) {
