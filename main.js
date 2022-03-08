@@ -110,12 +110,17 @@ eventListenerCreation();
 
 ////// GESTIONE IMMAGINE PROFILO VUOTA //////
 function controlProfilePicture(i) {
+    const missingImageContainer = document.querySelectorAll('.post-meta__icon')
     if (posts[i].author.image == null) {
         const eleProfileImage = document.querySelectorAll('.profile-pic');
         eleProfileImage[i].classList.add('profile-pic-default');
         const surnameInitialIndex = posts[i].author.name.indexOf(' ') + 1
         const initials = posts[i].author.name[0] + posts[i].author.name[surnameInitialIndex];
-        eleProfileImage[i].attributes.alt.value = initials
+        eleProfileImage[i].remove()
+        missingImageContainer[i].innerHTML = `<div class="profile-pic-default">
+                                                <span>${initials}</span>
+                                              </div>`
+
         
     }
 
