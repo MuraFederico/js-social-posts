@@ -113,18 +113,33 @@ for (let i = 0; i < posts.length; i++) {
     likeBtn.addEventListener('click', likeFunction);
 }
 
+const arrPostsLiked = []; // ARRAY DEI LIKES
+
 ////// FUNZIONE PER GESTIONE LIKES //////
 function likeFunction() {
-    this.classList.add('like-button--liked'); // COLORAZIONE TASTO PREMUTO
-    const eleLikesCount = document.querySelectorAll('.js-likes-counter');
-    const index = this.attributes['data-postid'].value - 1; // ACQUISIZIONE INDEX DEL POST
-    eleLikesCount[index].innerHTML = posts[index].likes += 1  // INCREMENTO LIKES DEL POST
-
-    arrPostsLiked.push(posts[index].id)// AGGIUNTA ID POST PIACIUTO IN ARRAY APPOSITA
+    if (this.classList.contains('like-button--liked')) {
+        
+        this.classList.remove('like-button--liked'); // DECOLORAZIONE TASTO PREMUTO
+        const eleLikesCount = document.querySelectorAll('.js-likes-counter');
+        const index = this.attributes['data-postid'].value - 1; // ACQUISIZIONE INDEX DEL POST
+        eleLikesCount[index].innerHTML = posts[index].likes -= 1  // DECREMENTO LIKES DEL POST
     
+        const indexID = arrPostsLiked.indexOf(posts[index].id) // ACQUISIZIONE INDEX DEL ID IN ARRAY DEI LIKES
+        arrPostsLiked.splice(indexID, 1) // RIMOZIONE ID DA ARRAY DEI LIKES
+        
+    } else {
+        this.classList.add('like-button--liked'); // COLORAZIONE TASTO PREMUTO
+        const eleLikesCount = document.querySelectorAll('.js-likes-counter');
+        const index = this.attributes['data-postid'].value - 1; // ACQUISIZIONE INDEX DEL POST
+        eleLikesCount[index].innerHTML = posts[index].likes += 1  // INCREMENTO LIKES DEL POST
+    
+        arrPostsLiked.push(posts[index].id)// AGGIUNTA ID POST PIACIUTO IN ARRAY APPOSITA
+        
+    }
+    console.log(arrPostsLiked)
 }
 
-const arrPostsLiked = [];
+
 
 
 ////// FORMATTAZIONE DATE IN FORMATO ITALIANO //////
