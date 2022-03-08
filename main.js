@@ -58,7 +58,7 @@ const posts = [
 
 const postsContainer = document.querySelector('.posts-list');
 
-
+////// GENERAZIONE DEI POST //////
 for (let i = 0; i < posts.length; i++) {
      
     const elePost = document.createElement('div');
@@ -96,18 +96,20 @@ for (let i = 0; i < posts.length; i++) {
 
 }
 
+////// AGGIUNTA EVENT LISTENER AL BOTTONE LIKE //////
 for (let i = 0; i < posts.length; i++) {
     const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
     likeBtn.addEventListener('click', likeFunction);
 }
 
-
+////// FUNZIONE PER GESTIONE LIKES //////
 function likeFunction() {
-    this.classList.add('like-button--liked');
-    const likesCount = document.querySelectorAll('.js-likes-counter');
-    const index = this.attributes['data-postid'].value - 1;
-    likesCount[index].innerHTML = posts[index].likes +=1
-    arrPostsLiked.push(posts[index].id)
+    this.classList.add('like-button--liked'); // COLORAZIONE TASTO PREMUTO
+    const eleLikesCount = document.querySelectorAll('.js-likes-counter');
+    const index = this.attributes['data-postid'].value - 1; // ACQUISIZIONE INDEX DEL POST
+    eleLikesCount[index].innerHTML = posts[index].likes += 1  // INCREMENTO LIKES DEL POST
+
+    arrPostsLiked.push(posts[index].id)// AGGIUNTA ID POST PIACIUTO IN ARRAY APPOSITA
     
 }
 
