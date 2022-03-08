@@ -89,9 +89,26 @@ for (let i = 0; i < posts.length; i++) {
                                     </a>
                                 </div>
                                 <div class="likes__counter">
-                                    Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+                                    Piace a <b id="like-counter-${posts[i].id}" class="js-likes-counter">${posts[i].likes}</b> persone
                                 </div>
                             </div> 
                         </div>`
 
 }
+
+for (let i = 0; i < posts.length; i++) {
+    const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
+    likeBtn.addEventListener('click', likeFunction);
+}
+
+
+function likeFunction() {
+    this.classList.add('like-button--liked');
+    const likesCount = document.querySelectorAll('.js-likes-counter');
+    const index = this.attributes['data-postid'].value - 1;
+    likesCount[index].innerHTML = posts[index].likes +=1
+    arrPostsLiked.push(posts[index].id)
+    
+}
+
+const arrPostsLiked = [];
