@@ -72,7 +72,7 @@ for (let i = 0; i < posts.length; i++) {
                                 </div>
                                 <div class="post-meta__data">
                                     <div class="post-meta__author">${posts[i].author.name}</div>
-                                    <div class="post-meta__time">${posts[i].created}</div>
+                                    <div class="post-meta__time">${dateFormatting(posts[i].created)}</div>
                                 </div>                    
                             </div>
                             </div>
@@ -83,7 +83,7 @@ for (let i = 0; i < posts.length; i++) {
                             <div class="post__footer">
                             <div class="likes js-likes">
                                 <div class="likes__cta">
-                                    <a class="like-button  js-like-button" href="#" data-postid="${posts[i].id}">
+                                    <a class="like-button  js-like-button" href="#!" data-postid="${posts[i].id}">
                                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                         <span class="like-button__label">Mi Piace</span>
                                     </a>
@@ -100,6 +100,7 @@ for (let i = 0; i < posts.length; i++) {
 for (let i = 0; i < posts.length; i++) {
     const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
     likeBtn.addEventListener('click', likeFunction);
+    // console.log(posts[i].created.split('-'))
 }
 
 ////// FUNZIONE PER GESTIONE LIKES //////
@@ -114,3 +115,14 @@ function likeFunction() {
 }
 
 const arrPostsLiked = [];
+
+
+////// FORMATTAZIONE DATE IN FORMATO ITALIANO //////
+function dateFormatting (toFormat) {
+    let date = ''
+    for (let i = 0; i < posts.length; i++) {
+        date = toFormat.split('-').reverse().join().replaceAll(',', '-');
+    }
+    return date;
+}
+
