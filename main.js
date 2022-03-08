@@ -94,13 +94,23 @@ for (let i = 0; i < posts.length; i++) {
                             </div> 
                         </div>`
 
+    ////// GESTIONE IMMAGINE PROFILO VUOTA //////
+    if (posts[i].author.image == null) {
+        const eleProfileImage = document.querySelectorAll('.profile-pic');
+        eleProfileImage[i].classList.add('profile-pic-default');
+        const surnameInitialIndex = posts[i].author.name.indexOf(' ') + 1
+        const initials = posts[i].author.name[0] + posts[i].author.name[surnameInitialIndex];
+        eleProfileImage[i].attributes.alt.value = initials
+        
+    }
+    console.log(posts[i].author.image)
+
 }
 
 ////// AGGIUNTA EVENT LISTENER AL BOTTONE LIKE //////
 for (let i = 0; i < posts.length; i++) {
     const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
     likeBtn.addEventListener('click', likeFunction);
-    // console.log(posts[i].created.split('-'))
 }
 
 ////// FUNZIONE PER GESTIONE LIKES //////
